@@ -1,0 +1,30 @@
+
+9/16/2015
+
+extract_data.sh
+  |
+  |
+  v
+create_ctl.sh
+  |
+  |
+  v
+daily_rate.sh
+  |
+  |
+  v
+save_2000-2009.sh, create_masked_daily_ctl.sh
+  |
+  |
+  v
+save_DJF_JJA.gs
+  |
+  |
+  v
+histo/run-log-PDF-2000-2009.sh, plot_PDF-2000-2009.sh  (CONUS/year-round) 
+histo/run-log-PDF-DJF-JJA.sh, plot_PDF-DJF-JJA.sh   (DJF/JJA)
+histo/run-log-PDF-DJF-JJA-4regions.sh, plot_PDF-DJF-JJA-4regions.sh  (4 regions for DJF and JJA seperately) 
+
+
+
+
