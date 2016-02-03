@@ -1,0 +1,6 @@
+'reinit'
+'open st4-latlon.ctl'
+'set gxout grfill'
+*'set lat 36 39'
+*'set lon -80 -75'
+'d apcpsfc'
