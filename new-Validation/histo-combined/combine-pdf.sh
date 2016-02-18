@@ -1,5 +1,6 @@
 
-for g in 1 2 3 4 5; do 
+#for g in 1 2 3 4 5; do 
+for g in 6; do 
   
   # size 3808x2878
   for sn in DJF JJA; do
