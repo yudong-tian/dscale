@@ -95,6 +95,7 @@ say 'opening 'int.ic'/monthly.ctl'
 
 'define expbias=expbar - refbar'
 'define intbias=intbar - refbar'
+'define base=0'
 
 'define exprmse=sqrt(amean((rain.2-rain)*(rain.2-rain), lon='lon1', lon='lon2', lat='lat1', lat='lat2'))'
 'define intrmse=sqrt(amean((rain.3-rain)*(rain.3-rain), lon='lon1', lon='lon2', lat='lat1', lat='lat2'))'
@@ -107,6 +108,10 @@ say 'opening 'int.ic'/monthly.ctl'
 'set cthick 6'
 'set ccolor 14'
 'd int'met.ir 
+'set cthick 2'
+'set ccolor 1'
+'set cmark 0'
+'d base'
 'set strsiz 0.2 0.25'
 'draw title 'int.ic' 'metname.ir
 'my_cbar_l -x 7.5 -y 1.5 -n 2 -t "Modeled" "Interpolated"'
