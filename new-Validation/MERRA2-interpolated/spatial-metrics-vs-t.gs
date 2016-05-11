@@ -1,4 +1,5 @@
 
+* compute bias, rmse, and correlation over three regions: CONUS, W. US. and E. US. 
 * layout: landscape, 3x3
 *newer addition
 * col, model runs 
@@ -30,10 +31,35 @@ metname.3='Correlation'
 *number of time steps
 tmax=120
 
-lon1=-125
-lon2=-66.5
-lat1=24.0833
-lat2=49.9166
+nregs=4
+regname.1='CONUS'
+regname.2='W_US'
+regname.3='E_US'
+regname.4='C_US'
+
+*CONUS
+lon1.1=-125
+lon2.1=-66.5
+lat1.1=24.0833
+lat2.1=49.9166
+
+*W. US 
+lon1.2=-125
+lon2.2=-105 
+lat1.2=24.0833
+lat2.2=49.9166
+
+*E. US 
+lon1.3=-100
+lon2.3=-66.5
+lat1.3=24.0833
+lat2.3=49.9166
+
+*C. US 
+lon1.4=-110
+lon2.4=-105
+lat1.4=36
+lat2.4=42
 
 cols=3
 rows=3
@@ -51,9 +77,26 @@ var.2="tc"
 var3.1="ybar3-xbar3"
 var3.2="tc3"
 
-vrange.1='-25 50' 
-vrange.2='0 80' 
-vrange.3='0.5 1' 
+* var.ireg
+vrange.1.1='-25 50' 
+vrange.2.1='0 80' 
+vrange.3.1='0.5 1' 
+
+vrange.1.2='-25 50' 
+vrange.2.2='0 80' 
+vrange.3.2='0.3 1' 
+
+vrange.1.3='-30 60' 
+vrange.2.3='0 100' 
+vrange.3.3='0.3 1' 
+
+vrange.1.4='-30 60' 
+vrange.2.4='0 100' 
+vrange.3.4='0.3 1' 
+
+ireg=4
+while (ireg <= nregs)
+'reinit'
 
 ir=1
 while (ir <= rows)
@@ -86,21 +129,21 @@ say 'opening 'int.ic'/monthly.ctl'
 'set xlopts 1 0.5 0.25'
 'set ylopts 1 0.5 0.25'
 
-'define expcor=scorr(rain.2, rain, lon='lon1', lon='lon2', lat='lat1', lat='lat2')'
-'define intcor=scorr(rain.3, rain, lon='lon1', lon='lon2', lat='lat1', lat='lat2')'
+'define expcor=scorr(rain.2, rain, lon='lon1.ireg', lon='lon2.ireg', lat='lat1.ireg', lat='lat2.ireg')'
+'define intcor=scorr(rain.3, rain, lon='lon1.ireg', lon='lon2.ireg', lat='lat1.ireg', lat='lat2.ireg')'
 
-'define refbar=amean(rain, lon='lon1', lon='lon2', lat='lat1', lat='lat2')'
-'define expbar=amean(rain.2, lon='lon1', lon='lon2', lat='lat1', lat='lat2')'
-'define intbar=amean(rain.3, lon='lon1', lon='lon2', lat='lat1', lat='lat2')'
+'define refbar=amean(rain, lon='lon1.ireg', lon='lon2.ireg', lat='lat1.ireg', lat='lat2.ireg')'
+'define expbar=amean(rain.2, lon='lon1.ireg', lon='lon2.ireg', lat='lat1.ireg', lat='lat2.ireg')'
+'define intbar=amean(rain.3, lon='lon1.ireg', lon='lon2.ireg', lat='lat1.ireg', lat='lat2.ireg')'
 
 'define expbias=expbar - refbar'
 'define intbias=intbar - refbar'
 'define base=0'
 
-'define exprmse=sqrt(amean((rain.2-rain)*(rain.2-rain), lon='lon1', lon='lon2', lat='lat1', lat='lat2'))'
-'define intrmse=sqrt(amean((rain.3-rain)*(rain.3-rain), lon='lon1', lon='lon2', lat='lat1', lat='lat2'))'
+'define exprmse=sqrt(amean((rain.2-rain)*(rain.2-rain), lon='lon1.ireg', lon='lon2.ireg', lat='lat1.ireg', lat='lat2.ireg'))'
+'define intrmse=sqrt(amean((rain.3-rain)*(rain.3-rain), lon='lon1.ireg', lon='lon2.ireg', lat='lat1.ireg', lat='lat2.ireg'))'
 
-'set vrange 'vrange.ir 
+'set vrange 'vrange.ir.ireg 
 'set cmark 0'
 'set cthick 6'
 'd exp'met.ir 
@@ -113,7 +156,7 @@ say 'opening 'int.ic'/monthly.ctl'
 'set cmark 0'
 'd base'
 'set strsiz 0.2 0.25'
-'draw title 'int.ic' 'metname.ir
+'draw title 'int.ic' 'metname.ir' 'regname.ireg
 'my_cbar_l -x 7.5 -y 1.5 -n 2 -t "Modeled" "Interpolated"'
 
 'close 3' 
@@ -124,6 +167,9 @@ say 'opening 'int.ic'/monthly.ctl'
  endwhile
 ir=ir+1
 endwhile
-'gxyat -x 3000 -y 2000 3x3-monthly-vs-t.png'
-'gxyat -x 1000 -y 800 sm-3x3-monthly-vs-t.png'
+'gxyat -x 3000 -y 2000 3x3-monthly-vs-t-'regname.ireg'.png'
+'gxyat -x 1000 -y 800 sm-3x3-monthly-vs-t-'regname.ireg'.png'
+
+ireg=ireg+1
+endwhile 
 
