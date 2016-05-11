@@ -21,12 +21,12 @@ met.2='rmse'
 met.3='cor'
 
 *col.is, DJF
-clev.1.1='-10 -5 0 5 10 15 20 25' 
-clev.2.1='0 10 20 30 40 50 60' 
+clev.1.1='-6 -3 0 3 6 9 12 15 18 21' 
+clev.2.1='0 5 10 15 20 25 30 35 40 45 50' 
 clev.3.1='0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1'
 
 clev.1.2='-10 -5 0 5 10 15 20 25 30 35 40' 
-clev.2.2='0 20 40 60 80 100' 
+clev.2.2='0 10 20 30 40 50 60 70 80' 
 clev.3.2='0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1'
 
 
@@ -70,7 +70,7 @@ vgap=0.2
 vh=8.5/rows
 vw=11/cols
 
-parea='0.7 10.4 0.5 7.5'
+parea='0.7 11.0 1.1 7.5'
 
 sn.1='DJF'
 sn.2='JJA'
@@ -115,10 +115,11 @@ while (ic <= cols)
    say ''met.ic'='value
    'set lat 'lat1' 'lat2
    'set lon 'lon1' 'lon2
+   'set mproj scaled'
    'set gxout grfill'
    'set clevs 'clev.ic.is 
    'd maskout('value'+0.000001*lat, mask.3(t=1))' 
-   'draw title 'metname.ic' of 'expname.ir' Data, 'sn.is
+   'draw title 'metname.ic' of 'expname.ir' 'sn.is' Climatology' 
    'close 3'
    
    ireg=ireg+1
