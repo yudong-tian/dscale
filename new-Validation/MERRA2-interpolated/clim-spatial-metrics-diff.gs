@@ -19,15 +19,19 @@ met.1='bias'
 met.2='rmse'
 met.3='cor'
 
-*col.ir, DJF
-clev.1.1='-6 -3 0 3 6 9 12 15 18 21' 
-clev.2.1='-15 -10 -5 0 5 10 15 20 25 30' 
-clev.3.1='-0.3 -0.25 -0.2 -0.15 -0.1 -0.05 0 0.05 0.1 0.15 0.2 0.25 0.3'
+*col.ir, DJF, bias, rmse, and correlation difference
+clev.1.1='-15 -12 -9 -6 -3 0 3 6 9 12 15' 
+clev.2.1='-15 -12 -9 -6 -3 0 3 6 9 12 15' 
+clev.3.1='-0.25 -0.2 -0.15 -0.1 -0.05 0 0.05 0.1 0.15 0.2 0.25'
 
-clev.1.2='-10 -5 0 5 10 15 20 25 30 35 40' 
+*col.ir, JJA
+clev.1.2='-20 -15 -10 -5 0 5 10 15 20 25 30' 
 clev.2.2='-20 -15 -10 -5 0 5 10 15 20 25 30' 
-clev.3.2='-0.3 -0.25 -0.2 -0.15 -0.1 -0.05 0 0.05 0.1 0.15 0.2 0.25 0.3'
+clev.1.2='-50 -40 -30 -20 -10 0 10 20 30 40 50' 
+clev.2.2='-50 -40 -30 -20 -10 0 10 20 30 40 50' 
+clev.3.2='-0.25 -0.2 -0.15 -0.1 -0.05 0 0.05 0.1 0.15 0.2 0.25'
 
+ccols='25   24   23    22   21 20 30 31 32 33 34 35'
 
 metname.1='Bias (mm/mon)'
 metname.2='RMSE (mm/mon)'
@@ -77,6 +81,21 @@ sn.2='JJA'
 
 'reinit'
 
+* These are the BLUE shades
+'set rgb 20 135 206 250'
+'set rgb 21 0 191 255'
+'set rgb 22 0 0 255'
+'set rgb 23 0 0 205'
+'set rgb 24 0 0 123'
+'set rgb 25 0 0 83'
+* These are the RED shades
+'set rgb 30 245 222 179'
+'set rgb 31 244 164 96'
+'set rgb 32 210 105 30'
+'set rgb 33 178 34 34'
+'set rgb 34 165 42 42'
+'set rgb 35 145 60 60'
+
 ir=1
 while (ir <= 2)
  ic=1
@@ -124,9 +143,10 @@ while (ic <= cols)
    'set lon 'lon1' 'lon2
    'set mproj scaled'
    'set gxout grfill'
+   'set ccols 'ccols
    'set clevs 'clev.ic.ir 
    'd maskout('value'+0.000001*lat, mask.4(t=1))' 
-   'draw title 'metname.ic' modeled-interpolated 'sn.ir' Climatology' 
+   'draw title 'metname.ic' difference, modeled-interpolated 'sn.ir
    'close 4'
    
    ireg=ireg+1
