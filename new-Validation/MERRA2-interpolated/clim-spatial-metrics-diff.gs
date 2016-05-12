@@ -25,13 +25,14 @@ clev.2.1='-15 -12 -9 -6 -3 0 3 6 9 12 15'
 clev.3.1='-0.25 -0.2 -0.15 -0.1 -0.05 0 0.05 0.1 0.15 0.2 0.25'
 
 *col.ir, JJA
-clev.1.2='-20 -15 -10 -5 0 5 10 15 20 25 30' 
-clev.2.2='-20 -15 -10 -5 0 5 10 15 20 25 30' 
 clev.1.2='-50 -40 -30 -20 -10 0 10 20 30 40 50' 
 clev.2.2='-50 -40 -30 -20 -10 0 10 20 30 40 50' 
 clev.3.2='-0.25 -0.2 -0.15 -0.1 -0.05 0 0.05 0.1 0.15 0.2 0.25'
 
-ccols='25   24   23    22   21 20 30 31 32 33 34 35'
+ccols.1='25   24   23    22   21 20 30 31 32 33 34 35'
+*reverse color for RMSE
+ccols.2='35   34   33    32   31 30 20 21 22 23 24 25' 
+ccols.3='25   24   23    22   21 20 30 31 32 33 34 35'
 
 metname.1='Bias (mm/mon)'
 metname.2='RMSE (mm/mon)'
@@ -143,7 +144,7 @@ while (ic <= cols)
    'set lon 'lon1' 'lon2
    'set mproj scaled'
    'set gxout grfill'
-   'set ccols 'ccols
+   'set ccols 'ccols.ic
    'set clevs 'clev.ic.ir 
    'd maskout('value'+0.000001*lat, mask.4(t=1))' 
    'draw title 'metname.ic' difference, modeled-interpolated 'sn.ir
